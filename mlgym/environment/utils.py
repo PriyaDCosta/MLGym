@@ -254,6 +254,7 @@ def copy_anything_to_container(container: Container, container_type: str, host_p
         FileNotFoundError: If host_path doesn't exist
         RuntimeError: If copy operation fails
     """
+    # host_path = "/Users/priyadcosta/Documents/MLGym/data/battleOfSexes/target.py"
     if not Path(host_path).exists():
         msg = f"Path {host_path} does not exist, cannot copy it to container."
         raise FileNotFoundError(msg)

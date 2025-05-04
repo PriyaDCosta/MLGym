@@ -10,9 +10,12 @@ and manages the workspace, evaluation, and resource limits.
 
 Adapted from SWE-Agent/sweagent/environment/swe_env.py
 """
-
 from __future__ import annotations
 
+from dotenv import load_dotenv
+load_dotenv()
+
+from pathlib import Path
 import copy
 import datetime
 import hashlib
@@ -36,7 +39,7 @@ from simple_parsing.helpers.serialization.serializable import FrozenSerializable
 import docker
 import docker.errors
 import docker.models.containers
-from mlgym import CONFIG_DIR, REPO_ROOT
+# from mlgym import CONFIG_DIR, REPO_ROOT
 from mlgym.environment.spaces import Unicode
 from mlgym.environment.tasks import (
     AbstractMLTask,
@@ -60,6 +63,9 @@ from mlgym.environment.utils import (
 from mlgym.types import AgentInfo
 from mlgym.utils.extras import multiline_representer
 from mlgym.utils.log import get_logger
+
+REPO_ROOT = Path(os.getenv("REPO_ROOT"))
+CONFIG_DIR = Path(os.getenv("CONFIG_DIR"))
 
 # ? I DON'T THINK WE NEED THIS
 ENV_LONG_TIMEOUT = int(os.getenv("MLGYM_ENV_TIMEOUT", "500"))
@@ -1305,6 +1311,9 @@ class MLGymEnv(gym.Env):
                         f"chmod -R 555 {str(self.task_workspace)}/data/{object}",
                         user="root",
                     )
+        print("CONFIG_DIR ",CONFIG_DIR)
+        print("REPO_ROOT ",REPO_ROOT)
+        print("task_workspace",self.task_workspace)
 
         # copy all starter code files to workspace_dir
         if self.task.args.starter_code is not None:

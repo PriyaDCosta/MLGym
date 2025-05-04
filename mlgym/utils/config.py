@@ -8,12 +8,13 @@ Adapted from SWE-agent/sweagent/utils/config.py
 from __future__ import annotations
 
 from pathlib import Path
+import os
 
 from dotenv import load_dotenv
-
-from mlgym import REPO_ROOT
+load_dotenv()
+# from mlgym import REPO_ROOT
 from mlgym.utils.log import get_logger
-
+REPO_ROOT = Path(os.getenv("REPO_ROOT"))
 logger = get_logger("config")
 
 

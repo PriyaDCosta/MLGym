@@ -17,6 +17,8 @@ from abc import abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
+from dotenv import load_dotenv
+load_dotenv()
 
 import numpy as np
 import yaml
@@ -26,8 +28,9 @@ from simple_parsing.helpers.serialization.serializable import (
     FrozenSerializable,
     Serializable,
 )
+CONFIG_DIR = Path(os.getenv("CONFIG_DIR"))
 
-from mlgym import CONFIG_DIR
+# from mlgym import CONFIG_DIR
 from mlgym.utils.extras import multiline_representer
 from mlgym.utils.log import get_logger
 
